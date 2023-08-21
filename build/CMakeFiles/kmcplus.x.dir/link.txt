@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -march=native CMakeFiles/kmcplus.x.dir/src/kmc_cluster.cpp.o CMakeFiles/kmcplus.x.dir/src/kmc_init.cpp.o CMakeFiles/kmcplus.x.dir/src/kmc_input.cpp.o CMakeFiles/kmcplus.x.dir/src/kmc_jump.cpp.o CMakeFiles/kmcplus.x.dir/src/main.cpp.o -o kmcplus.x  -Wl,-rpath,/home/liaosi/local/yaml-cpp/lib: /home/liaosi/local/yaml-cpp/lib/libyaml-cpp.so.0.6 

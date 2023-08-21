@@ -1,0 +1,97 @@
+# System
+par_ltc: "BCC"      
+nx: 40    # sizes in the 3-dimensions 
+ny: 40
+nz: 40
+par_compB: 0.015
+par_compC: 0.0001
+par_compD: 0.0001
+par_compV: 0.0001   # vcc; set >1.0 to get only 1 defect
+Mutiple: false
+MutipleSize: true
+# System paralle
+paralle: false
+parallelx: 4      #必须大于2且为偶数
+parallely: 4
+parallelz: 4
+# Simulation time parameters
+par_time: 100.0     # time: total
+time_conf: 10.0      # output conf 
+par_step: 100000000   # steps: toal (minus step with no limit for this)
+step_log: 20000	# output cluster
+Outposcar: 20000000		# output POSCAR
+
+# Read File
+read_file: false
+filepath: "site.dat"
+filepackage: "data"
+# Kinetic parameters 
+par_temp: 673.0                   #tempk
+par_beta: 8.617332478e-5		  # kb
+par_dis_rec: 2.598                # recombination distance
+par_muvA: 6.46e+12                # vcc mu and Em
+
+
+# Sets the starting number of atoms
+par_radius_start: 5
+
+# Energy parameters
+par_eSPA: 0.65        # Fe
+par_eSPB: 0.56		  # Cu
+par_eSPC: 0.70        # Ni
+par_eSPD: 1.03		  # Mn
+
+#A
+par_eSPA1A: -0.778    # A-A
+par_eSPA2A: -0.389
+
+par_eSPA1B: -0.609    # A-B
+par_eSPA2B: -0.344
+
+par_eSPA1V: -0.161    # A-V
+par_eSPA2V: -0.161
+
+par_eSPA1C: -0.821    
+par_eSPA2C: -0.399
+
+par_eSPA1D: -0.648    
+par_eSPA2D: -0.364
+
+#B
+par_eSPB1B: -0.581    # B-B
+par_eSPB2B: -0.389
+
+par_eSPB1V: -0.103    # B-V
+par_eSPB2V: -0.206
+
+par_eSPB1C: -0.692   
+par_eSPB2C: -0.344
+
+par_eSPB1D: -0.519    
+par_eSPB2D: -0.249
+
+#C
+par_eSPC1C: -0.793  
+par_eSPC2C: -0.389
+
+par_eSPC1D: -0.831   
+par_eSPC2D: -0.464
+
+par_eSPC1V: -0.234  
+par_eSPC2V: -0.351
+
+#D
+par_eSPD1D: -0.438   
+par_eSPD2D: -0.389
+
+par_eSPD1V: -0.151    
+par_eSPD2V: -0.206
+
+#V
+par_eSPV1V: 0.315     # V-V
+par_eSPV2V: -0.214
+
+
+
+
+

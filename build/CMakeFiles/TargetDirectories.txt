@@ -1,0 +1,7 @@
+/home/liaosi/zhenganx/KMC++/build/CMakeFiles/kmcplus.x.dir
+/home/liaosi/zhenganx/KMC++/build/CMakeFiles/edit_cache.dir
+/home/liaosi/zhenganx/KMC++/build/CMakeFiles/rebuild_cache.dir
+/home/liaosi/zhenganx/KMC++/build/CMakeFiles/list_install_components.dir
+/home/liaosi/zhenganx/KMC++/build/CMakeFiles/install.dir
+/home/liaosi/zhenganx/KMC++/build/CMakeFiles/install/local.dir
+/home/liaosi/zhenganx/KMC++/build/CMakeFiles/install/strip.dir
