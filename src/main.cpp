@@ -4,6 +4,8 @@
 #include "kmc_init.h"
 #include "kmc_jump.h"
 #include "kmc_cluster.h"
+#include <ctime>
+
 
 std::string getInputFileName(int argc, const char* argv[]);
 std::unique_ptr<Base> createLattice(SimulationParameters& parameter);
@@ -13,36 +15,43 @@ std::unique_ptr<CrystalMethod> createMethod(SimulationParameters& parameter);
 
 int main(int argc, const char* argv[]) {
 
+	time_t t1;
+	time_t t2;
+	struct tm tm1, tm2;
+	double seconds;
+	//const std::string input_file_name = getInputFileName(argc, argv);
 	
-	const std::string input_file_name = getInputFileName(argc, argv);
-	
-	SimulationParameters parameter(input_file_name);
+	time(&t1);//获取现在的时间
 
+	SimulationParameters parameter("input.yaml");
+	
 	auto lattice = createLattice(parameter);
 
 	auto method = createMethod(parameter);
 
-	// method->Print(lattice, init, parameter.filepackage);
+	//method->Print(lattice, 1, ".");
 
 	auto jump = createJump(lattice);
 
+	int num = 0;
 	for (int i = 0; i < parameter.par_step; i++) {
 
 		jump->runSimulationLoop();
 
-		// if (i % parameter.step_log == 0) {
-		// 	method->Cluster(lattice);
-		// }
+	
 		if (i % parameter.outposcar == 0) {
-			method->Print(lattice,i,parameter.filepackage);
+			method->Print(lattice,num,parameter.filepackage);
+			num++;
 		}
 	}
-	
+	//method->OutSize(parameter.filepackage);
 
 	//auto method = createMethod(parameter);
 	
 	//runSimulationLoop(parameter,lattice, jump, method);
-	
+	time(&t2);//获取现在的时间
+	seconds = difftime(t2, t1);//返回double类型
+	std::cout << "difftime(): " << seconds << std::endl;
 
 	return 0;
 }
@@ -51,7 +60,7 @@ int main(int argc, const char* argv[]) {
 
 std::string getInputFileName(int argc, const char* argv[]) {
 	if (argc < 2) {
-		std::cerr << "�÷���" << argv[0] << " <�����ļ���>\n";
+		//std::cerr << "用法：" << argv[0] << " <输入文件名>";
 		exit(1);
 	}
 	return std::string(argv[1]);
