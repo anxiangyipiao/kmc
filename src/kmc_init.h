@@ -9,90 +9,93 @@
 #include "blitz/array.h"
 
 
-//¾§¸ñ»ùÀà
+/// æ™¶æ ¼åŸºç±»,åŒ…å«ä¸€ä¸ªæ™¶æ ¼æ‰€æœ‰éœ€è¦çš„ä¿¡æ¯ã€‚
 class Base {
 public:
-    int n1nbr;                          // µÚÒ»½üÁÚÊı
-    int n2nbr;                          // µÚ¶ş½üÁÚÊı
-    int Length;                         // ³¤¶È
-    int Bnum;                           // ¾§°ûÖĞBÔ­×ÓÊı
-    int Vnum;                           // ¾§°ûÖĞVÔ­×ÓÊı
-    int Anum;                           // ¾§°ûÖĞAÔ­×ÓÊı
-    int Cnum;                           // ¾§°ûÖĞCÔ­×ÓÊı
-    int Dnum;                           // ¾§°ûÖĞDÔ­×ÓÊı
-    int vacx;                           // ¿ÕÎ»×ø±êx
-    int vacy;                           // ¿ÕÎ»×ø±êy
-    int vacz;                           // ¿ÕÎ»×ø±êz
-    int vacnm;                          // ¿ÕÎ»±àºÅ
-    blitz::Array<int, 4> Site;          // Íø¸ñµã×ø±ê
-    blitz::Array<double, 2> BList;      // BÄÜÁ¿ÁĞ±í
-    blitz::Array<double, 2> AList;      // AÄÜÁ¿ÁĞ±í
-    std::vector<int>modla;              // Ä£Á¿ÏòÁ¿la
-    std::vector<int>modlb;              // Ä£Á¿ÏòÁ¿lb
-    std::vector<int>modlc;              // Ä£Á¿ÏòÁ¿lc
-    int(*modlx);                        // Ä£Á¿ÏòÁ¿lx
-    int(*modly);                        // Ä£Á¿ÏòÁ¿ly
-    int(*modlz);                        // Ä£Á¿ÏòÁ¿lz
-    typedef struct {                    // ¶¨Òå¿ÕÎ»½á¹¹Ìå
-        int x;                          // ¿ÕÎ»×ø±êx
-        int y;                          // ¿ÕÎ»×ø±êy
-        int z;                          // ¿ÕÎ»×ø±êz
-        int nm;                         // ¿ÕÎ»±àºÅ
+    int n1nbr;                          ///< ç¬¬ä¸€è¿‘é‚»æ•°
+    int n2nbr;                          ///< ç¬¬äºŒè¿‘é‚»æ•°
+    int Length;                         ///< é•¿åº¦
+    int Bnum;                           ///< æ™¶èƒä¸­BåŸå­æ•°
+    int Vnum;                           ///< æ™¶èƒä¸­VåŸå­æ•°
+    int Anum;                           ///< æ™¶èƒä¸­AåŸå­æ•°
+    int Cnum;                           ///< æ™¶èƒä¸­CåŸå­æ•°
+    int Dnum;                           ///< æ™¶èƒä¸­DåŸå­æ•°
+    int vacx;                           ///< ç©ºä½åæ ‡x
+    int vacy;                           ///< ç©ºä½åæ ‡y
+    int vacz;                           ///< ç©ºä½åæ ‡z
+    int vacnm;                          ///< ç©ºä½ç¼–å·
+    blitz::Array<int, 4> Site;          ///< ç½‘æ ¼ç‚¹åæ ‡
+    blitz::Array<double, 2> BList;      ///< Bèƒ½é‡åˆ—è¡¨
+    blitz::Array<double, 2> AList;      ///< Aèƒ½é‡åˆ—è¡¨
+    std::vector<int>modla;              ///< æ¨¡é‡å‘é‡la
+    std::vector<int>modlb;              ///< æ¨¡é‡å‘é‡lb
+    std::vector<int>modlc;              ///< æ¨¡é‡å‘é‡lc
+    int(*modlx);                        ///< æ¨¡é‡å‘é‡lx
+    int(*modly);                        ///< æ¨¡é‡å‘é‡ly
+    int(*modlz);                        ///< æ¨¡é‡å‘é‡lz
+    ///< å®šä¹‰ç©ºä½ç»“æ„ä½“
+    typedef struct {                   
+        int x;                          ///< ç©ºä½åæ ‡x
+        int y;                          ///< ç©ºä½åæ ‡y
+        int z;                          ///< ç©ºä½åæ ‡z
+        int nm;                         ///< ç©ºä½ç¼–å·
     } VAC;
 
-    blitz::Array<std::vector<VAC>, 3> Vaclists;    // ¿ÕÎ»ÁĞ±í
-    //SimulationParameters p;//Ö¸Ïò SimulationParameters ÀàĞÍµÄÖ¸Õë
+    blitz::Array<std::vector<VAC>, 3> Vaclists;    ///< ç©ºä½åˆ—è¡¨
 
-    virtual ~Base() = default;           // Îö¹¹º¯Êı
-    void Energy(SimulationParameters& parameter); // ¼ÆËãÄÜÁ¿
-    void InitStatesArray(SimulationParameters& parameter); // ³õÊ¼»¯¾§°û
-    void Periodic(SimulationParameters& parameter); // ´¦ÀíÖÜÆÚĞÔ±ß½çÌõ¼ş
-    void RecycleFNeighbors(SimulationParameters& parameter); // ¸üĞÂFCC½üÁÚ
-    void RecycleBNeighbors(SimulationParameters& parameter); // ¸üĞÂBCC½üÁÚ
 
-    virtual void CountNeighbors(int nm, int i, int  j, int  k, std::vector<int> count1, std::vector<int> count2) = 0; // ¼ÆËã½üÁÚÊı
+    virtual ~Base() = default;           ///< ææ„å‡½æ•°
+    void Energy(SimulationParameters& parameter); ///< è®¡ç®—è·ƒè¿èƒ½é‡
+    void InitStatesArray(SimulationParameters& parameter); ///< åˆå§‹åŒ–æ™¶èƒ
+    void Periodic(SimulationParameters& parameter); ///< å¤„ç†å‘¨æœŸæ€§è¾¹ç•Œæ¡ä»¶
+    void RecycleFNeighbors(SimulationParameters& parameter); ///< å¾ªç¯è®¡ç®—FCCè¿‘é‚»
+    void RecycleBNeighbors(SimulationParameters& parameter); ///< å¾ªç¯è®¡ç®—BCCè¿‘é‚»
+
+    virtual void CountNeighbors(int nm, int i, int  j, int  k, std::vector<int> count1, std::vector<int> count2) = 0; ///< è®¡ç®—è¿‘é‚»æ•°
 
 private:
-    std::vector<int> CalculateN1Neighbors(SimulationParameters& parameter, int nm, int nmn, int i, int  j, int  k);
-    std::vector<int> CalculateN1FNeighbors(SimulationParameters& parameter, int nm, int nmn, int i, int  j, int  k);
-    std::vector<int> CalculateN2Neighbors(SimulationParameters& parameter, int nm, int nmn, int i, int  j, int  k);
-    void CalculateAtomNumbers(SimulationParameters& parameter); // ¼ÆËãÔ­×ÓÊıÁ¿
-    void GenerateLatticePoints(SimulationParameters& parameter); // Éú³É¾§¸ñµã
-    void AddAtom(SimulationParameters& parameter, int type, int ii, int jj, int zz, int nm); // Ìí¼ÓÔ­×Ó
-    void TofileStatesArray(SimulationParameters& parameter); // ½«¾§°û×´Ì¬Ğ´ÈëÎÄ¼ş
-    void AbInitStatesArrays(SimulationParameters& parameter); // ³õÊ¼»¯¾§°û×´Ì¬
+    
+    std::vector<int> CalculateN1Neighbors(SimulationParameters& parameter, int nm, int nmn, int i, int  j, int  k);  ///< å¾ªç¯è®¡ç®—BCCç¬¬ä¸€è¿‘é‚»
+    std::vector<int> CalculateN1FNeighbors(SimulationParameters& parameter, int nm, int nmn, int i, int  j, int  k); ///< å¾ªç¯è®¡ç®—FCCç¬¬ä¸€è¿‘é‚»
+    std::vector<int> CalculateN2Neighbors(SimulationParameters& parameter, int nm, int nmn, int i, int  j, int  k);  ///< å¾ªç¯è®¡ç®—ç¬¬äºŒè¿‘é‚»
+    void CalculateAtomNumbers(SimulationParameters& parameter); // è®¡ç®—åŸå­æ•°é‡
+    void GenerateLatticePoints(SimulationParameters& parameter); // ç”Ÿæˆæ™¶æ ¼ç‚¹
+    void AddAtom(SimulationParameters& parameter, int type, int ii, int jj, int zz, int nm); // æ·»åŠ åŸå­
+    void TofileStatesArray(SimulationParameters& parameter); // å°†æ™¶èƒçŠ¶æ€å†™å…¥æ–‡ä»¶
+    void AbInitStatesArrays(SimulationParameters& parameter); // åˆå§‹åŒ–æ™¶èƒçŠ¶æ€
     std::vector<std::string> Split(const std::string& s, const char& delim);
 
 };
 
-// ÉùÃ÷Ò»¸öµ¥¿ÕÎ»BCC¾§¸ñÀàSingleBcc£¬¼Ì³Ğ×Ô»ùÀàBase
+/// å£°æ˜ä¸€ä¸ªå•ç©ºä½BCCæ™¶æ ¼ç±»SingleBccï¼Œç»§æ‰¿è‡ªåŸºç±»Base
 class SingleBcc : public Base {
 public:
-    blitz::Array<int, 4> NN1, NN2; // 4Î¬ÕûÊıÊı×é£¬´æ´¢Ã¿¸öÎ»ÖÃµÄÒ»¼¶ºÍ¶ş¼¶ÁÚ¾ÓÊı
+    blitz::Array<int, 4> NN1, NN2; ///< 4ç»´æ•´æ•°æ•°ç»„ï¼Œå­˜å‚¨æ¯ä¸ªä½ç½®çš„ä¸€çº§å’ŒäºŒçº§é‚»å±…æ•°
     SimulationParameters* p;
-    // SingleBccÀàµÄ¹¹Ôìº¯Êı£¬ÊäÈë²ÎÊıÎªSimulationParametersµÄÒıÓÃ
+    
+    /// SingleBccç±»çš„æ„é€ å‡½æ•°ï¼Œè¾“å…¥å‚æ•°ä¸ºSimulationParametersçš„å¼•ç”¨
     SingleBcc(SimulationParameters& parameter){
         p = &parameter;
-        Periodic(parameter); // Ö´ĞĞÖÜÆÚĞÔ±ß½çÌõ¼şµÄ³õÊ¼»¯
-        n1nbr = 8, n2nbr = 6, Length = 2;// Ò»¼¶ÁÚ¾ÓÊı£¬¶ş¼¶ÁÚ¾ÓÊı£¬¾§¸ñ³¤¶ÈµÄ¸³Öµ
-        // ¸ù¾İ¾§¸ñ³¤¶ÈºÍÄ£Äâ²ÎÊıµÄxyz³ß´ç³õÊ¼»¯SiteÊı×é£¬²¢¸³³õÖµÎª0
+        Periodic(parameter); ///< æ‰§è¡Œå‘¨æœŸæ€§è¾¹ç•Œæ¡ä»¶çš„åˆå§‹åŒ–
+        n1nbr = 8, n2nbr = 6, Length = 2;///< ä¸€çº§é‚»å±…æ•°ï¼ŒäºŒçº§é‚»å±…æ•°ï¼Œæ™¶æ ¼é•¿åº¦çš„èµ‹å€¼
+        /// æ ¹æ®æ™¶æ ¼é•¿åº¦å’Œæ¨¡æ‹Ÿå‚æ•°çš„xyzå°ºå¯¸åˆå§‹åŒ–Siteæ•°ç»„ï¼Œå¹¶èµ‹åˆå€¼ä¸º0
         Site.resize(Length, parameter.nx, parameter.ny, parameter.nz); Site = 0;
         NN1.resize(Length, parameter.nx, parameter.ny, parameter.nz); NN1 = 0;
         NN2.resize(Length, parameter.nx, parameter.ny, parameter.nz); NN2 = 0;
-        // ¸ù¾İ¸ø¶¨·¶Î§³õÊ¼»¯BListÊı×é£¬²¢¸³³õÖµÎª0.0
+        /// æ ¹æ®ç»™å®šèŒƒå›´åˆå§‹åŒ–BListæ•°ç»„ï¼Œå¹¶èµ‹åˆå€¼ä¸º0.0
         BList.resize(blitz::Range(-8, 8), blitz::Range(-6, 6)); BList = 0.0;
         AList.resize(blitz::Range(-8, 8), blitz::Range(-6, 6));AList = 0.0;
 
-        Energy(parameter); // ¼ÆËãÄÜÁ¿
-        InitStatesArray(parameter); // ³õÊ¼»¯¾§¸ñ×´Ì¬Êı×é
-        RecycleBNeighbors(parameter); // ¼ÆËãÃ¿¸öÎ»ÖÃµÄÒ»¼¶ºÍ¶ş¼¶ÁÚ¾ÓÊı
+        Energy(parameter); ///< è®¡ç®—èƒ½é‡
+        InitStatesArray(parameter); ///< åˆå§‹åŒ–æ™¶æ ¼çŠ¶æ€æ•°ç»„
+        RecycleBNeighbors(parameter); ///< è®¡ç®—æ¯ä¸ªä½ç½®çš„ä¸€çº§å’ŒäºŒçº§é‚»å±…æ•°
         
     }
-    // ÖØĞ´CountNeighborsº¯Êı£¬¼ÆËãÃ¿¸öÎ»ÖÃµÄÒ»¼¶ºÍ¶ş¼¶ÁÚ¾ÓÊı
+    /// é‡å†™CountNeighborså‡½æ•°ï¼Œè®¡ç®—æ¯ä¸ªä½ç½®çš„ä¸€çº§å’ŒäºŒçº§é‚»å±…æ•°
     void CountNeighbors(int nm, int i, int  j, int  k, std::vector<int> count1, std::vector<int> count2) override;
  
 };
-// ÉùÃ÷Ò»¸öµ¥¿ÕÎ»FCC¾§¸ñÀàSingleFcc£¬¼Ì³Ğ×Ô»ùÀàBase  Í¬BCC
+/// å£°æ˜ä¸€ä¸ªå•ç©ºä½FCCæ™¶æ ¼ç±»SingleFccï¼Œç»§æ‰¿è‡ªåŸºç±»Base  åŒBCC
 class SingleFcc : public Base {
 public:
     blitz::Array<int, 4>NN1, NN2;
@@ -115,15 +118,15 @@ public:
     };
 
     void CountNeighbors(int nm,  int i, int  j, int  k, std::vector<int> count1, std::vector<int> count2) override;
-    //void Neighbor(SimulationParameters& parameter) override;
+
 
 };
-// ÉùÃ÷Ò»¸ö¶à¿ÕÎ»BCC¾§¸ñÀàMultiBcc£¬¼Ì³Ğ×Ô»ùÀàBase
+/// å£°æ˜ä¸€ä¸ªå¤šç©ºä½BCCæ™¶æ ¼ç±»MultiBccï¼Œç»§æ‰¿è‡ªåŸºç±»Base
 class MultiBcc : public Base {
 public:
    
-    blitz::Array<int, 5>NN1, NN2; //·Ö±ğÊÇ 5 Î¬Êı×é£¬ÓÃÓÚ´æ´¢ÁÚ¾ÓĞÅÏ¢
-    SimulationParameters *p; //Ö¸Ïò SimulationParameters ÀàĞÍµÄÖ¸Õë¡£
+    blitz::Array<int, 5>NN1, NN2; ///< åˆ†åˆ«æ˜¯ 5 ç»´æ•°ç»„ï¼Œç”¨äºå­˜å‚¨é‚»å±…ä¿¡æ¯
+    SimulationParameters *p; ///< æŒ‡å‘ SimulationParameters ç±»å‹çš„æŒ‡é’ˆã€‚
 
     MultiBcc(SimulationParameters& parameter) {
         p = &parameter;
@@ -136,15 +139,15 @@ public:
         RecycleBNeighbors(parameter);
         
     };
-    //¸²¸ÇÁË»ùÀàÖĞµÄ CountNeighbors() º¯Êı£¬ÓÃÓÚ¼ÆËãµ±Ç°¿ÕÎ»µÄÁÚ¾ÓĞÅÏ¢¡£
+    ///è¦†ç›–äº†åŸºç±»ä¸­çš„ CountNeighbors() å‡½æ•°ï¼Œç”¨äºè®¡ç®—å½“å‰ç©ºä½çš„é‚»å±…ä¿¡æ¯ã€‚
     void CountNeighbors(int nm,  int i, int  j, int  k, std::vector<int> count1, std::vector<int> count2) override;
 
 };
-// ÉùÃ÷Ò»¸ö¶à¿ÕÎ»BCC¾§¸ñÀàMultiFcc£¬¼Ì³Ğ×Ô»ùÀàBase
+/// å£°æ˜ä¸€ä¸ªå¤šç©ºä½BCCæ™¶æ ¼ç±»MultiFccï¼Œç»§æ‰¿è‡ªåŸºç±»Base
 class MultiFcc : public Base {
 public:
-    blitz::Array<int, 5>NN1, NN2;//·Ö±ğÊÇ 5 Î¬Êı×é£¬ÓÃÓÚ´æ´¢ÁÚ¾ÓĞÅÏ¢
-    SimulationParameters* p;//Ö¸Ïò SimulationParameters ÀàĞÍµÄÖ¸Õë
+    blitz::Array<int, 5>NN1, NN2;///< åˆ†åˆ«æ˜¯ 5 ç»´æ•°ç»„ï¼Œç”¨äºå­˜å‚¨é‚»å±…ä¿¡æ¯
+    SimulationParameters* p;///< æŒ‡å‘ SimulationParameters ç±»å‹çš„æŒ‡é’ˆ
     MultiFcc(SimulationParameters& parameter) {
         p = &parameter;
         Periodic(parameter);
@@ -157,10 +160,10 @@ public:
        
         
     }
-    //¸²¸ÇÁË»ùÀàÖĞµÄ CountNeighbors() º¯Êı£¬ÓÃÓÚ¼ÆËãµ±Ç°¿ÕÎ»µÄÁÚ¾ÓĞÅÏ¢¡£
+    ///è¦†ç›–äº†åŸºç±»ä¸­çš„ CountNeighbors() å‡½æ•°ï¼Œç”¨äºè®¡ç®—å½“å‰ç©ºä½çš„é‚»å±…ä¿¡æ¯ã€‚
     void CountNeighbors(int nm,int i, int  j, int  k, std::vector<int> count1, std::vector<int> count2) override;
 };
-// ÉùÃ÷Ò»¸ö¶àÀàĞÍBCC¾§¸ñÀà£¨ABVCD 5ÖÖÀàĞÍ£©MultiSizeBcc£¬¼Ì³Ğ×Ô»ùÀàBase
+/// å£°æ˜ä¸€ä¸ªå¤šç±»å‹BCCæ™¶æ ¼ç±»ï¼ˆABVCD 5ç§ç±»å‹ï¼‰MultiSizeBccï¼Œç»§æ‰¿è‡ªåŸºç±»Base
 class MultiSizeBcc : public Base {
 public:
     blitz::Array<int, 5>NN1, NN2;
@@ -180,7 +183,7 @@ public:
 
     void CountNeighbors(int nm, int i, int  j, int  k, std::vector<int> count1, std::vector<int> count2) override;
 };
-// ÉùÃ÷Ò»¸ö¶àÀàĞÍFCC¾§¸ñÀà£¨ABVCD 5ÖÖÀàĞÍ£©MultiSizeFcc£¬¼Ì³Ğ×Ô»ùÀàBase
+/// å£°æ˜ä¸€ä¸ªå¤šç±»å‹FCCæ™¶æ ¼ç±»ï¼ˆABVCD 5ç§ç±»å‹ï¼‰MultiSizeFccï¼Œç»§æ‰¿è‡ªåŸºç±»Base
 class MultiSizeFcc : public Base {
 public:
     blitz::Array<int, 5>NN1, NN2;
@@ -200,7 +203,7 @@ public:
 
     void CountNeighbors(int nm,  int i, int  j, int  k, std::vector<int> count1, std::vector<int> count2) override;
 };
-// ÉùÃ÷Ò»¸ö²¢ĞĞ¶àÀàĞÍBCC¾§¸ñÀà£¨ABVCD 5ÖÖÀàĞÍ£©ParaBcc £¬¼Ì³Ğ×Ô»ùÀàBase
+/// å£°æ˜ä¸€ä¸ªå¹¶è¡Œå¤šç±»å‹BCCæ™¶æ ¼ç±»ï¼ˆABVCD 5ç§ç±»å‹ï¼‰ParaBcc ï¼Œç»§æ‰¿è‡ªåŸºç±»Base
 class ParaBcc : public Base {
 public:
    
@@ -218,60 +221,60 @@ public:
         for (int i = 0; i < parameter.parallelx; i++) {
             for (int j = 0; j < parameter.parallely; j++) {
                 for (int k = 0; k < parameter.parallelz; k++) {
-                    Vaclists(i, j, k) = std::vector<VAC>(); // ´´½¨Ò»¸ö¿ÕµÄ VAC vector£¬²¢½«Æä¸³Öµ¸ø Vaclists ÖĞµÄÔªËØ
+                    Vaclists(i, j, k) = std::vector<VAC>(); // åˆ›å»ºä¸€ä¸ªç©ºçš„ VAC vectorï¼Œå¹¶å°†å…¶èµ‹å€¼ç»™ Vaclists ä¸­çš„å…ƒç´ 
                 }
             }
         }
         InitStatesArray(parameter);
         RecycleBNeighbors(parameter);
 
-        for (int i = 0; i < Vaclists.extent(0); i++) {
-            for (int j = 0; j < Vaclists.extent(1); j++) {
-                for (int k = 0; k < Vaclists.extent(2); k++) {
-                    std::vector<VAC>& current_vaclist = Vaclists(i, j, k);
-                    for (const auto& vac : current_vaclist) {
-                        // ÔÚ´Ë´¦¶ÔÃ¿¸ö vacancy ×ö²Ù×÷
-                        std::cout << vac.nm<< "  " << vac.x << "  " << vac.y << "  " << vac.z<<std::endl;
-                    }
-                }
-            }
-        }
+        //for (int i = 0; i < Vaclists.extent(0); i++) {
+        //    for (int j = 0; j < Vaclists.extent(1); j++) {
+        //        for (int k = 0; k < Vaclists.extent(2); k++) {
+        //            std::vector<VAC>& current_vaclist = Vaclists(i, j, k);
+        //            for (const auto& vac : current_vaclist) {
+        //                // åœ¨æ­¤å¤„å¯¹æ¯ä¸ª vacancy åšæ“ä½œ
+        //                std::cout <<  vac.x << "  " << vac.y << "  " << vac.z<< "  " << vac.nm <<  std::endl;
+        //            }
+        //        }
+        //    }
+        //}
     };
 
     void CountNeighbors(int nm, int i, int  j, int  k, std::vector<int> count1, std::vector<int> count2) override;
 };
 
-
+/// æ ¹æ®è¾“å…¥æ•°æ®ç”Ÿæˆä¸åŒç±»å‹æ™¶æ ¼
 class TypeBuilder {
 public:
-    // ¶¨ÒåÒ»¸ö CreatorFunc ÀàĞÍ£¬Ö¸ÏòÒ»¸ö½ÓÊÜ SimulationParameters ÒıÓÃ²ÎÊı²¢·µ»Ø unique_ptr<Base> ÀàĞÍµÄº¯Êı
+    /// å®šä¹‰ä¸€ä¸ª CreatorFunc ç±»å‹ï¼ŒæŒ‡å‘ä¸€ä¸ªæ¥å— SimulationParameters å¼•ç”¨å‚æ•°å¹¶è¿”å› unique_ptr<Base> ç±»å‹çš„å‡½æ•°
     using CreatorFunc = std::unique_ptr<Base>(*)(SimulationParameters&);
 
-    // ´´½¨Ö¸¶¨²ÎÊıÀàĞÍµÄ¶ÔÏó
+    /// åˆ›å»ºæŒ‡å®šå‚æ•°ç±»å‹çš„å¯¹è±¡
     static std::unique_ptr<Base> create(SimulationParameters& parameter) {
-        // ¶¨ÒåÒ»¸öÀàĞÍµ½º¯ÊıÖ¸ÕëµÄÓ³Éä±í
+        /// å®šä¹‰ä¸€ä¸ªç±»å‹åˆ°å‡½æ•°æŒ‡é’ˆçš„æ˜ å°„è¡¨
         static const std::map<std::string, CreatorFunc> typeMap{
             {"BCC", &createBcc},
             {"FCC", &createFcc}
         };
 
-        // Èç¹û²ÎÊıÖ¸¶¨Îª²¢ĞĞÄ£Ê½£¬Ôò´´½¨ ParaBcc ¶ÔÏó²¢·µ»Ø
+        /// å¦‚æœå‚æ•°æŒ‡å®šä¸ºå¹¶è¡Œæ¨¡å¼ï¼Œåˆ™åˆ›å»º ParaBcc å¯¹è±¡å¹¶è¿”å›
         if (parameter.Paralle) {
             return std::make_unique<ParaBcc>(parameter);
         }
 
-        // ¸ù¾İ²ÎÊıÀàĞÍ²éÕÒ¶ÔÓ¦µÄº¯ÊıÖ¸Õë
+        /// æ ¹æ®å‚æ•°ç±»å‹æŸ¥æ‰¾å¯¹åº”çš„å‡½æ•°æŒ‡é’ˆ
         auto iter = typeMap.find(parameter.par_ltc);
         if (iter == typeMap.end()) {
             return nullptr;
         }
 
-        // µ÷ÓÃ¶ÔÓ¦µÄº¯Êı´´½¨¶ÔÏó²¢·µ»Ø
+        /// è°ƒç”¨å¯¹åº”çš„å‡½æ•°åˆ›å»ºå¯¹è±¡å¹¶è¿”å›
         return iter->second(parameter);
     }
 
 private:
-    // ´´½¨ BCC ÀàĞÍµÄ¶ÔÏó
+    /// åˆ›å»º BCC ç±»å‹çš„å¯¹è±¡
     static std::unique_ptr<Base> createBcc(SimulationParameters& parameter) {
         if (parameter.MutipleSize) {
             return std::make_unique<MultiSizeBcc>(parameter);
@@ -284,7 +287,7 @@ private:
         }
     }
 
-    // ´´½¨ FCC ÀàĞÍµÄ¶ÔÏó
+    /// åˆ›å»º FCC ç±»å‹çš„å¯¹è±¡
     static std::unique_ptr<Base> createFcc(SimulationParameters& parameter) {
         if (parameter.MutipleSize) {
             return std::make_unique<MultiSizeFcc>(parameter);

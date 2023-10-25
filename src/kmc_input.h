@@ -33,11 +33,12 @@ par_muvA : a double that specifies the viscosity of the system
 par_radius_start : an integer that specifies the starting number of atoms
 par_eSPA... par_eSPV2V : doubles that specify the energy parameters for different types of interactions in the system.
 */
+
 class SimulationParameters {
 
 public:
     std::string par_ltc;
-    int nx, ny, nz, parallelx, parallely, parallelz;
+    int nx, ny, nz, parallelx, parallely, parallelz, numThreads;
     double par_compB, par_compV, par_compC, par_compD;
     double par_time, time_conf;
     unsigned long long par_step, step_log, outposcar;
@@ -52,6 +53,7 @@ public:
     double par_eSPC1C, par_eSPC2C, par_eSPC1D, par_eSPC2D, par_eSPC1V, par_eSPC2V;
     double par_eSPD1D, par_eSPD2D, par_eSPD1V, par_eSPD2V;
     double par_eSPV1V, par_eSPV2V;
+     
     SimulationParameters(std::string filename) {
         YAML::Node config = YAML::LoadFile(filename);
 
@@ -63,6 +65,7 @@ public:
         parallelx = config["parallelx"].as<int>();
         parallely = config["parallely"].as<int>();
         parallelz = config["parallelz"].as<int>();
+        numThreads = config["numThreads"].as<int>();
 
         par_compB = config["par_compB"].as<double>();
         par_compV = config["par_compV"].as<double>();
@@ -132,7 +135,6 @@ public:
         par_eSPV2V = config["par_eSPV2V"].as<double>();
       
     };
-
 
 };
 

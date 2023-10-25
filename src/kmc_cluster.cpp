@@ -33,7 +33,7 @@ void BCCmethod::Cluster(std::unique_ptr<Base>& s) {
 		}
 	}
 
-	//¶àÎ¬map²éÕÒ
+	//å¤šç»´mapæŸ¥æ‰¾
 	unordered_map<int, unordered_map<int, unordered_map<int, unordered_map<int, int>>>>::iterator p1;
 	unordered_map<int, unordered_map<int, unordered_map<int, int>>>::iterator p2;
 	unordered_map<int, unordered_map<int, int>>::iterator p3;
@@ -85,16 +85,15 @@ void BCCmethod::Cluster(std::unique_ptr<Base>& s) {
 	}
 
 	this->Size(Num);
+	this->Pairs(s);
 	//CrystalMethod<T>::Size(Num);
 
 }
 
 
-
-
 int  BCCmethod::Deep(int cluster,int  a, int b,int  c, int nmn, std::unique_ptr<Base>& s,unordered_map<int, unordered_map<int, unordered_map<int, unordered_map<int, int>>>> &Bsite){
 
-	Bsite[a][b][c][nmn] = 0;// ÕâÀï²éÑ¯¹ıÁË£¬ÏÂ´ÎÌø¹ı
+	Bsite[a][b][c][nmn] = 0;// è¿™é‡ŒæŸ¥è¯¢è¿‡äº†ï¼Œä¸‹æ¬¡è·³è¿‡
 
 	int nms;
 	switch (nmn) {
@@ -137,7 +136,7 @@ void CrystalMethod::Size(vector<int>& Num) {
 
 	map<int, int>tempmap;
 	for (int i = 0; i < Num.size(); i++) {
-		//´æÔÚKey
+		//å­˜åœ¨Key
 		if (tempmap.count(Num[i]) > 0) {
 			tempmap[Num[i]] = tempmap[Num[i]] + 1;
 		}
@@ -152,54 +151,54 @@ void CrystalMethod::Size(vector<int>& Num) {
 	for (it = tempmap.begin(); it != tempmap.end(); it++)
 	{
 		if(it->first > radius_start){
-			//°ë¾¶
+			//åŠå¾„
 			double r = (cbrt(it->first) * 2.78 * sqrt(3)) / 40;	//per_radius
 			for(int i= 0; i < it->second; i++){
 				Allradius.push_back(r);
 			}
-			//ÊıÃÜ¶È
+			//æ•°å¯†åº¦
 			number = number + it->second;
 		}
 	}
-	//µ¹ĞğÅÅĞò
+	//å€’å™æ’åº
 	reverse(Allradius.begin(), Allradius.end());
 	if (!Allradius.empty()) {
-		//×î´ó°ë¾¶
+		//æœ€å¤§åŠå¾„
 		MaxRadius.push_back(Allradius.front());
 		//cout << Allradius.front() <<endl;
-		//Æ½¾ù°ë¾¶
+		//å¹³å‡åŠå¾„
 		double sum = 0;
 		for (int i = 0; i < Allradius.size(); i++) {
 			sum += Allradius[i];
 		}
 		
 		AverageRadius.push_back(sum/ Allradius.size());
-		//ÊıÃÜ¶È
+		//æ•°å¯†åº¦
 		NumbericalDensity.push_back(number / (nx * ny * nz));
 	}
 	else {
-		//×î´ó°ë¾¶
+		//æœ€å¤§åŠå¾„
 		MaxRadius.push_back(0);
 		//cout << Allradius[0]<<endl;
-		//Æ½¾ù°ë¾¶
+		//å¹³å‡åŠå¾„
 		AverageRadius.push_back(0);
-		//ÊıÃÜ¶È
+		//æ•°å¯†åº¦
 		NumbericalDensity.push_back(0);
 	}
-	//¹ÂÁ¢Ô­×Ó
+	//å­¤ç«‹åŸå­
 	Alone.push_back(alone);
-	//Ô­×Ó·Ö²¼
+	//åŸå­åˆ†å¸ƒ
 	DictRadius.push_back(tempmap);
 }
 
 
 void CrystalMethod::OutSize(string path)
 {
-	// ´ò¿ªÊä³öÎÄ¼şÁ÷
+	// æ‰“å¼€è¾“å‡ºæ–‡ä»¶æµ
 	ofstream outFile1(path+"/output1.dat");
 	outFile1 << "Alone" << " " << "AverageRadius" << " " << "MaxRadius" << " " << "NumbericalDensity" << " " <<
 		"A-B" << " " << "A-V" << " " << "A-A" << " " << "B-B" << " " << "B-V" << " " << "V-V" << endl;
-	// Ğ´Èë±äÁ¿
+	// å†™å…¥å˜é‡
 	for (int i = 0; i < Alone.size(); i++) {
 		outFile1 << Alone[i] << " "<<AverageRadius[i] << " " << MaxRadius[i] << " "<< NumbericalDensity[i] <<" "<<TPair[i]["01"] << " " << TPair[i]["02"] << " " << TPair[i]["00"] << " " << TPair[i]["11"] << " " << TPair[i]["12"] << " " << TPair[i]["22"] <<endl;
 	}
@@ -219,7 +218,7 @@ void CrystalMethod::OutSize(string path)
 		outFile2 << endl;
 	}
 
-	// ¹Ø±ÕÎÄ¼şÁ÷
+	// å…³é—­æ–‡ä»¶æµ
 	outFile2.close();
 
 }
@@ -227,7 +226,7 @@ void CrystalMethod::OutSize(string path)
 
 void BCCmethod::Pairs(std::unique_ptr<Base>& s) {
 	
-	//Éî¿½±´
+	//æ·±æ‹·è´
 	blitz::Array<int, 4> arr_copy(s->Site.shape());
 	arr_copy = s->Site;
 
@@ -303,9 +302,9 @@ void BCCmethod::Print(std::unique_ptr<Base>& obj,int a,std::string filepackage) 
 		
 	// Create directory if it does not exist
 		
-		ofstream outFile;	//¶¨Òåofstream¶ÔÏóoutFile
+		ofstream outFile;	//å®šä¹‰ofstreamå¯¹è±¡outFile
 	
-	    outFile.open(filepackage +"/POSCAR"+std::to_string(a), ios::out);	//´ò¿ªÎÄ¼ş
+	    outFile.open(filepackage +"/POSCAR"+std::to_string(a), ios::out);	//æ‰“å¼€æ–‡ä»¶
 	
 	    outFile << "Fe" << endl;
 	    outFile << "1.0000000000000000" << endl;
@@ -322,7 +321,7 @@ void BCCmethod::Print(std::unique_ptr<Base>& obj,int a,std::string filepackage) 
 	                for (int n = 0; n < 2; n++) {
 	                    if (obj->Site(n,i,j,k) == 0) {
 	                        vector<double> tempvec = ToCoodinate(i, j, k, n);
-	                        outFile << tempvec[0] << "\t" << tempvec[1] << "\t" << tempvec[2] << endl; //Ğ´Èë²Ù×÷
+	                        outFile << tempvec[0] << "\t" << tempvec[1] << "\t" << tempvec[2] << endl; //å†™å…¥æ“ä½œ
 	                    }                     
 	                }
 	            }
@@ -335,14 +334,14 @@ void BCCmethod::Print(std::unique_ptr<Base>& obj,int a,std::string filepackage) 
 	                for (int n = 0; n < 2; n++) {
 	                    if (obj->Site(n, i, j, k) == 1) {
 	                        vector<double> tempvec = ToCoodinate(i, j, k, n);
-	                        outFile << tempvec[0] << "\t" << tempvec[1] << "\t" << tempvec[2] << endl; //Ğ´Èë²Ù×÷
+	                        outFile << tempvec[0] << "\t" << tempvec[1] << "\t" << tempvec[2] << endl; //å†™å…¥æ“ä½œ
 	                    }
 	                }
 	            }
 	        }
 	    }
 	
-	    outFile.close();	//¹Ø±ÕÎÄ¼ş
+	    outFile.close();	//å…³é—­æ–‡ä»¶
 }
 
 
@@ -438,7 +437,7 @@ void FCCmethod::Cluster(std::unique_ptr<Base>& s)
 		}
 	}
 
-	//¶àÎ¬map²éÕÒ
+	//å¤šç»´mapæŸ¥æ‰¾
 	unordered_map<int, unordered_map<int, unordered_map<int, unordered_map<int, int>>>>::iterator p1;
 	unordered_map<int, unordered_map<int, unordered_map<int, int>>>::iterator p2;
 	unordered_map<int, unordered_map<int, int>>::iterator p3;
@@ -494,7 +493,7 @@ void FCCmethod::Cluster(std::unique_ptr<Base>& s)
 
 int  FCCmethod::Deep(int cluster, int  x, int y, int  z, int nm, std::unique_ptr<Base>& s, unordered_map<int, unordered_map<int, unordered_map<int, unordered_map<int, int>>>>& Bsite) {
 
-	Bsite[x][y][z][nm] = 0;// ÕâÀï²éÑ¯¹ıÁË£¬ÏÂ´ÎÌø¹ı
+	Bsite[x][y][z][nm] = 0;// è¿™é‡ŒæŸ¥è¯¢è¿‡äº†ï¼Œä¸‹æ¬¡è·³è¿‡
 
 
 	for (int nmn = 0; nmn < 4; nmn++) {
@@ -528,9 +527,9 @@ int  FCCmethod::Deep(int cluster, int  x, int y, int  z, int nm, std::unique_ptr
 
 void FCCmethod::Print(std::unique_ptr<Base>& obj,int a,std::string filename)
 {
-	ofstream outFile;	//¶¨Òåofstream¶ÔÏóoutFile
+	ofstream outFile;	//å®šä¹‰ofstreamå¯¹è±¡outFile
 
-	outFile.open(filename + "/POSCAR" + std::to_string(a), ios::out);	//´ò¿ªÎÄ¼ş
+	outFile.open(filename + "/POSCAR" + std::to_string(a), ios::out);	//æ‰“å¼€æ–‡ä»¶
 
 	outFile << "Fe" << endl;
 	outFile << "1.0000000000000000" << endl;
@@ -547,7 +546,7 @@ void FCCmethod::Print(std::unique_ptr<Base>& obj,int a,std::string filename)
 				for (int n = 0; n < 4; n++) {
 					if (obj->Site(n, i, j, k) == 0) {
 						vector<double> tempvec = ToCoodinate(i, j, k, n);
-						outFile << tempvec[0] << "\t" << tempvec[1] << "\t" << tempvec[2] << endl; //Ğ´Èë²Ù×÷
+						outFile << tempvec[0] << "\t" << tempvec[1] << "\t" << tempvec[2] << endl; //å†™å…¥æ“ä½œ
 					}
 
 				}
@@ -561,20 +560,20 @@ void FCCmethod::Print(std::unique_ptr<Base>& obj,int a,std::string filename)
 				for (int n = 0; n < 2; n++) {
 					if (obj->Site(n, i, j, k) == 1) {
 						vector<double> tempvec = ToCoodinate(i, j, k, n);
-						outFile << tempvec[0] << "\t" << tempvec[1] << "\t" << tempvec[2] << endl; //Ğ´Èë²Ù×÷
+						outFile << tempvec[0] << "\t" << tempvec[1] << "\t" << tempvec[2] << endl; //å†™å…¥æ“ä½œ
 					}
 				}
 			}
 		}
 	}
 
-	outFile.close();	//¹Ø±ÕÎÄ¼ş
+	outFile.close();	//å…³é—­æ–‡ä»¶
 
 }
 
 void FCCmethod::Pairs(std::unique_ptr<Base>& s)
 {
-	//Éî¿½±´
+	//æ·±æ‹·è´
 	blitz::Array<int, 4> arr_copy(s->Site.shape());
 	arr_copy = s->Site;
 
@@ -670,7 +669,7 @@ void SizeBCCmethod::Cluster(std::unique_ptr<Base>& s)
 		}
 	}
 
-	//¶àÎ¬map²éÕÒ
+	//å¤šç»´mapæŸ¥æ‰¾
 	unordered_map<int, unordered_map<int, unordered_map<int, unordered_map<int, int>>>>::iterator p1;
 	unordered_map<int, unordered_map<int, unordered_map<int, int>>>::iterator p2;
 	unordered_map<int, unordered_map<int, int>>::iterator p3;
@@ -727,7 +726,7 @@ void SizeBCCmethod::Cluster(std::unique_ptr<Base>& s)
 
 void SizeBCCmethod::Pairs(std::unique_ptr<Base>& s)
 {
-	//Éî¿½±´
+	//æ·±æ‹·è´
 	blitz::Array<int, 4> arr_copy(s->Site.shape());
 	arr_copy = s->Site;
 
@@ -845,7 +844,7 @@ void SizeBCCmethod::Pairs(std::unique_ptr<Base>& s)
 
 int SizeBCCmethod::Deep(int cluster, int a, int b, int c, int nmn, std::unique_ptr<Base>& s, unordered_map<int, unordered_map<int, unordered_map<int, unordered_map<int, int>>>>& Bsite)
 {
-	Bsite[a][b][c][nmn] = 0;// ÕâÀï²éÑ¯¹ıÁË£¬ÏÂ´ÎÌø¹ı
+	Bsite[a][b][c][nmn] = 0;// è¿™é‡ŒæŸ¥è¯¢è¿‡äº†ï¼Œä¸‹æ¬¡è·³è¿‡
 
 	int nms;
 	switch (nmn) {
@@ -885,9 +884,9 @@ void SizeBCCmethod::Print(std::unique_ptr<Base>& obj, int a, std::string filepac
 
 	// Create directory if it does not exist
 
-	ofstream outFile;	//¶¨Òåofstream¶ÔÏóoutFile
+	ofstream outFile;	//å®šä¹‰ofstreamå¯¹è±¡outFile
 
-	outFile.open(filepackage + "/"+"POSCAR" + std::to_string(a), ios::out);	//´ò¿ªÎÄ¼ş
+	outFile.open(filepackage + "/"+"POSCAR" + std::to_string(a), ios::out);	//æ‰“å¼€æ–‡ä»¶
 
 	outFile << "Fe" << endl;
 	outFile << "1.0000000000000000" << endl;
@@ -904,7 +903,7 @@ void SizeBCCmethod::Print(std::unique_ptr<Base>& obj, int a, std::string filepac
 				for (int n = 0; n < 2; n++) {
 					if (obj->Site(n, i, j, k) == 0) {
 						vector<double> tempvec = ToCoodinate(i, j, k, n);
-						outFile << tempvec[0] << "\t" << tempvec[1] << "\t" << tempvec[2] << endl; //Ğ´Èë²Ù×÷
+						outFile << tempvec[0] << "\t" << tempvec[1] << "\t" << tempvec[2] << endl; //å†™å…¥æ“ä½œ
 					}
 				}
 			}
@@ -917,7 +916,7 @@ void SizeBCCmethod::Print(std::unique_ptr<Base>& obj, int a, std::string filepac
 				for (int n = 0; n < 2; n++) {
 					if (obj->Site(n, i, j, k) == 1) {
 						vector<double> tempvec = ToCoodinate(i, j, k, n);
-						outFile << tempvec[0] << "\t" << tempvec[1] << "\t" << tempvec[2] << endl; //Ğ´Èë²Ù×÷
+						outFile << tempvec[0] << "\t" << tempvec[1] << "\t" << tempvec[2] << endl; //å†™å…¥æ“ä½œ
 					}
 				}
 			}
@@ -929,7 +928,7 @@ void SizeBCCmethod::Print(std::unique_ptr<Base>& obj, int a, std::string filepac
 				for (int n = 0; n < 2; n++) {
 					if (obj->Site(n, i, j, k) == 3) {
 						vector<double> tempvec = ToCoodinate(i, j, k, n);
-						outFile << tempvec[0] << "\t" << tempvec[1] << "\t" << tempvec[2] << endl; //Ğ´Èë²Ù×÷
+						outFile << tempvec[0] << "\t" << tempvec[1] << "\t" << tempvec[2] << endl; //å†™å…¥æ“ä½œ
 					}
 				}
 			}
@@ -941,13 +940,13 @@ void SizeBCCmethod::Print(std::unique_ptr<Base>& obj, int a, std::string filepac
 				for (int n = 0; n < 2; n++) {
 					if (obj->Site(n, i, j, k) == 4) {
 						vector<double> tempvec = ToCoodinate(i, j, k, n);
-						outFile << tempvec[0] << "\t" << tempvec[1] << "\t" << tempvec[2] << endl; //Ğ´Èë²Ù×÷
+						outFile << tempvec[0] << "\t" << tempvec[1] << "\t" << tempvec[2] << endl; //å†™å…¥æ“ä½œ
 					}
 				}
 			}
 		}
 	}
-	outFile.close();	//¹Ø±ÕÎÄ¼ş
+	outFile.close();	//å…³é—­æ–‡ä»¶
 }
 
 vector<double> SizeBCCmethod::ToCoodinate(int a, int b, int c, int d)

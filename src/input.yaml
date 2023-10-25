@@ -1,39 +1,40 @@
 # System
 par_ltc: "BCC"      
-nx: 40    # sizes in the 3-dimensions 
+nx: 40				# 原子xyz扩胞比例
 ny: 40
 nz: 40
-par_compB: 0.015
-par_compC: 0.000
-par_compD: 0.000
-par_compV: 0.001   
-Mutiple: false
-MutipleSize: false
+par_compB: 0.01     #BCDV的比例，小数
+par_compC: 0.00
+par_compD: 0.0
+par_compV: 0.002
+Mutiple: true		#是否开启多空位，开启需要设置par_compV比例，否则默认位1个空位
+MutipleSize: false	#是否开启多类型，默认为 ABV 三种类型，开启可以有 ABCDV 五种类型
 # System paralle
-paralle: false
-parallelx: 4      #必须大于2且为偶数
+paralle: true      #是否启用并行
+numThreads: 4		#利用的cpu数
+parallelx: 4		#区域划分， 最小为4，且为偶数。 xyz 是xyz轴的划分。
 parallely: 4
 parallelz: 4
 # Simulation time parameters
-par_time: 100.0     # time: total
+par_time: 100.0     # 总的时间
 time_conf: 10.0     # output conf 
-par_step: 50000001   # steps: toal (minus step with no limit for this)
-step_log: 2000000		# output cluster
-Outposcar: 500000000		# output POSCAR
+par_step: 5001		# 总步数
+step_log: 500000	# output cluster
+Outposcar: 1000		# 每隔多少步输出 POSCAR
 
 # Read File
-read_file: false
-filepath: "site.dat"
-filepackage: "zax"
+read_file: false		#从文件读取
+filepath: "site.dat"	#文件读取路径
+filepackage: "data"		#运行后文件保存路径
 # Kinetic parameters 
-par_temp: 773.0                   #tempk
+par_temp: 673.0                   #tempk
 par_beta: 8.617332478e-5		  # kb
 par_dis_rec: 2.598                # recombination distance
 par_muvA: 6.46e+12                # vcc mu and Em
 
 
 # Sets the starting number of atoms
-par_radius_start: 5
+par_radius_start: 5			#从多少个原子开始才算一个团簇
 
 # Energy parameters
 par_eSPA: 0.65        # Fe

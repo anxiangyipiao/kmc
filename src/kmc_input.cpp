@@ -4,9 +4,9 @@
 std::mt19937 e(std::random_device{}());
 std::uniform_real_distribution<float> u(0, 1);
 
-//std::default_random_engine e(time(0));               //time(0)返回特定时间到当前的秒数
-//std::uniform_real_distribution<double> u(0, 1);      // 返回 0-1 的随机数
-//extern std::default_random_engine e;               //time(0)返回特定时间到当前的秒数
+//std::default_random_engine e(time(0));               //time(0)杩斿洖鐗瑰畾鏃堕棿鍒板綋鍓嶇殑绉掓暟
+//std::uniform_real_distribution<double> u(0, 1);      // 杩斿洖 0-1 鐨勯殢鏈烘暟
+//extern std::default_random_engine e;               //time(0)杩斿洖鐗瑰畾鏃堕棿鍒板綋鍓嶇殑绉掓暟
 //extern std::uniform_real_distribution<double> u;
 
 int   v1nbr_bcc[2][3][8] = {
